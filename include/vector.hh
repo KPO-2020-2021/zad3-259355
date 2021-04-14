@@ -23,13 +23,15 @@ public:
 
     Vector operator / (const double &tmp);
 
+    double vlenght (Vector vec2);
+
     const double &operator [] (int index) const;
 
     double &operator [] (int index);
 
 };
 
-std::ostream &operator << (std::ostream &out, Vector const &tmp);
+std::ostream &operator << (std::ostream &stream, Vector const &tmp);
 
 std::istream &operator >> (std::istream &in, Vector &tmp);
 
@@ -171,11 +173,19 @@ double &Vector::operator[](int index) {
  |      out - strumien wejsciowy,                                             |
  |      tmp - wektor.                                                         |
  */
-std::ostream &operator << (std::ostream &out, Vector const &tmp) {
-    for (int i = 0; i < SIZE; ++i) {
-        out << "[ " << tmp[i] << " ]\n";
-    }
-    return out;
+// std::ostream &operator << (std::ostream &out, Vector const &tmp) {
+//     for (int i = 0; i < SIZE; ++i) {
+//         out << "[ " << tmp[i] << " ]\n";
+//     }
+//     return out;
+// }
+
+std::ostream& operator << ( std::ostream &stream, Vector const &tmp){
+
+    stream << std::setw(16) << std::fixed << std::setprecision(10) << tmp[0]
+           << std::setw(16) << std::fixed << std::setprecision(10) << tmp[1];
+
+    return stream;
 }
 
 
@@ -192,3 +202,13 @@ std::istream &operator >> (std::istream &in, Vector &tmp) {
     std::cout << std::endl;
     return in;
 }
+
+double Vector::vlenght (Vector vec2){
+    double len;
+    
+    len = sqrt(pow(vec2.size[0] - this->size[0],2) + pow(vec2.size[SIZE-1] - this->size[SIZE-1],2));
+
+    return len;
+}
+
+

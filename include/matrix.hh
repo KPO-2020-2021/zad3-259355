@@ -3,6 +3,7 @@
 #include "size.hh"
 #include "vector.hh"
 #include <iostream>
+#include <math.h>
 #include <cstdlib>
 
 class Matrix {
@@ -11,6 +12,8 @@ private:
     double value[SIZE][SIZE];               // Wartosci macierzy
 
 public:
+    double angle; 
+
     Matrix(double [SIZE][SIZE]);            // Konstruktor klasy
 
     Matrix();                               // Konstruktor klasy
@@ -18,6 +21,10 @@ public:
     Vector operator * (Vector tmp);           // Operator mnożenia przez wektor
 
     Matrix operator + (Matrix tmp);
+
+    Matrix Init();
+
+    double toradians();
 
     double  &operator () (unsigned int row, unsigned int column);
     
@@ -175,5 +182,21 @@ std::ostream &operator<<(std::ostream &out, const Matrix &mat) {
         std::cout << std::endl;
     }
     return out;
+}
+
+Matrix Matrix::Init(){
+
+    this->value[0][0] = cos(this->angle);
+    this->value[0][1] = -sin(this->angle);
+    this->value[1][0] = sin(this->angle);
+    this->value[1][1] = cos(this->angle);
+
+    return *this;
+}
+
+double Matrix::toradians(){
+
+    this->angle = (this->angle * M_PI)/180;
+    return this->angle;
 }
 
