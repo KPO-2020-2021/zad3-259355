@@ -3,6 +3,7 @@
 
 #include "matrix.hh"
 #include "size.hh"
+// #include "coordinates.hh"
 #include "vector.hh"
 #include <iostream>
 
@@ -19,17 +20,17 @@ class Prostokat {
    */
   private:
 
-//   Vector pro [2*SIZE];
+  double pro [NOPOINTS][SIZE];
 
   public:
 
-//   Prostokat(Vector [2*SIZE]);            // Konstruktor klasy
+  Prostokat(double [NOPOINTS][SIZE]);            // Konstruktor klasy
 
-//   Prostokat();                               // Konstruktor klasy
+  Prostokat();                               // Konstruktor klasy
 
-//   double  &operator () (unsigned int row, unsigned int column);
+  double  &operator () (unsigned int row, unsigned int column);
     
-//   const double &operator () (unsigned int row, unsigned int column) const;
+  const double &operator () (unsigned int row, unsigned int column) const;
 
   Vector p1,p2,p3,p4;
 
@@ -60,11 +61,13 @@ std::ostream& operator << ( std::ostream &stream, const Prostokat &Pr);
 //  |  Zwraca:                                                                   |
 //  |      Prostokat wypelnione wartoscia 0.                                       |
 //  */
-// Prostokat::Prostokat() {
-//     for (int i = 0; i < 2*SIZE; ++i) {
-//         pro[i] = 0;
-//     }
-// }
+Prostokat::Prostokat() {
+    for (int i = 0; i < NOPOINTS; ++i) {
+        for(int j = 0; j < SIZE; ++j) {
+        pro[i][j] = 0;
+    }
+    }
+}
 
 
 // /******************************************************************************
@@ -74,56 +77,99 @@ std::ostream& operator << ( std::ostream &stream, const Prostokat &Pr);
 //  |  Zwraca:                                                                   |
 //  |      Prostokat wypelniona wartosciami podanymi w argumencie.                 |
 //  */
-// Prostokat::Prostokat(Vector tmp[SIZE*2]) {
-//     for (int i = 0; i < SIZE*2; ++i) {
-//         pro[i] = tmp[i];
-//     }
-// }
+Prostokat::Prostokat(double tmp[NOPOINTS][SIZE]) {
+    for (int i = 0; i < NOPOINTS; ++i) {
+        for(int j = 0; j < SIZE; ++j) {
+        pro[i][j] = tmp[i][j];
+    }
+    }
+}
+
+/******************************************************************************
+ |  Funktor macierzy                                                          |
+ |  Argumenty:                                                                |
+ |      row - numer wiersza.                                                  |
+ |      column - numer kolumny.                                               |
+ |  Zwraca:                                                                   |
+ |      Wartosc macierzy w danym miejscu tablicy.                             |
+ */
+double &Prostokat::operator()(unsigned int row, unsigned int column) {
+
+    if (row >= NOPOINTS) {
+        std::cout << "Error: Macierz jest poza zasiegiem"; 
+        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+    }
+
+    if (column >= SIZE) {
+        std::cout << "Error: Macierz jest poza zasiegiem";
+        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+    }
+
+    return pro[row][column];
+}
+
+
+/******************************************************************************
+ |  Funktor macierzy                                                          |
+ |  Argumenty:                                                                |
+ |      row - numer wiersza.                                                  |
+ |      column - numer kolumny.                                               |
+ |  Zwraca:                                                                   |
+ |      Wartosc macierzy w danym miejscu tablicy jako stala.                  |
+ */
+const double &Prostokat::operator () (unsigned int row, unsigned int column) const {
+
+    if (row >= NOPOINTS) {
+        std::cout << "Error: Prostokat jest poza zasiegiem";
+        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+    }
+
+    if (column >= SIZE) {
+        std::cout << "Error: Prostokat jest poza zasiegiem";
+        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+    }
+
+    return pro[row][column];
+}
 
 
 
 
 Prostokat Prostokat::operator * (Matrix &matrix){
     Prostokat result;
-    result.p1 = matrix * this->p1;
-    result.p2 = matrix * this->p2;
-    result.p3 = matrix * this->p3;
-    result.p4 = matrix * this->p4;
-
+    for (int i = 0; i < NOPOINTS; ++i){
+            result(i,0) = matrix(0,0) * this->pro[i][0] + matrix(1,0) *  this->pro[i][1];
+            result(i,1) = matrix(0,1) * this->pro[i][0] + matrix(1,1) *  this->pro[i][1];
+    }
     return result;
 }
 
 
 Prostokat Prostokat::move(Vector &vec){
-    Prostokat result;
-    result.p1 = this->p1 + vec;
-    result.p2 = this->p2 + vec;
-    result.p3 = this->p3 + vec;
-    result.p4 = this->p4 + vec;
-
-    return result;
+    for (int i = 0; i < NOPOINTS; ++i){
+        for (int j = 0; j <SIZE; ++j){
+        this->pro[i][j] += vec[j];
+    }}
+    return *this;
 }
 
 double Prostokat::lenght(){
-   this->slen = this->p1.vlenght(this->p2);
-   this->blen = this->p2.vlenght(this->p3);
+
+   this->slen = sqrt(pow(this->pro[0][0] - this->pro[1][0],2) + pow(this->pro[0][1] - this->pro[1][1],2));
+   this->blen = sqrt(pow(this->pro[0][0] - this->pro[3][0],2) + pow(this->pro[0][1] - this->pro[3][1],2));
    return 0;
 }
 
 
 std::ostream& operator << ( std::ostream &stream, const Prostokat &Pr){
 
-    stream << Pr.p1 << std::endl;
-    stream << Pr.p2 << std::endl;
-    stream << Pr.p3 << std::endl;
-    stream << Pr.p4 << std::endl;
-    stream << Pr.p1 << std::endl;
-
+for (int i = 0; i < NOPOINTS; ++i){
+    
+    stream << std::setw(16) << std::fixed << std::setprecision(10) << Pr(i,0) << std::setw(16) << std::fixed << std::setprecision(10) << Pr(i,1) << std::endl;
+    }
+    stream << std::setw(16) << std::fixed << std::setprecision(10) << Pr(0,0) << std::setw(16) << std::fixed << std::setprecision(10) << Pr(0,1) << std::endl;
     return stream;
 }
-
-
-
 
 void Prostokat::showres(double temp1, double temp2){
 
@@ -150,9 +196,7 @@ void Prostokat::showres(double temp1, double temp2){
        std::cout << "Before operation: " << temp2 << std::endl;
        std::cout << "After operation: " << this->blen << std::endl; 
    }
-
 }
-
 
 void Prostokat::turn(int ang){
     Matrix matrix;
@@ -160,7 +204,6 @@ void Prostokat::turn(int ang){
     matrix.toradians();
     matrix.Init();
     *this = *this * matrix;
-
 }
 
 #endif

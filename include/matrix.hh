@@ -187,8 +187,8 @@ std::ostream &operator<<(std::ostream &out, const Matrix &mat) {
 Matrix Matrix::Init(){
 
     this->value[0][0] = cos(this->angle);
-    this->value[0][1] = -sin(this->angle);
-    this->value[1][0] = sin(this->angle);
+    this->value[1][0] = -sin(this->angle);
+    this->value[0][1] = sin(this->angle);
     this->value[1][1] = cos(this->angle);
 
     return *this;

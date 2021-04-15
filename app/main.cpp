@@ -100,30 +100,8 @@ int main() {
 //   Vector tmpV2 = Vector(argumentsV);
 //   std::cout << "Vector - konstruktor parametryczny:\n" << tmpV2 << std::endl;
 
-//   std::cout << "Rectangle:" << std::endl;
-//   Prostokat tmpM1 = Prostokat();
-//   std::cout << "Rectangle - konstruktor bezparametryczny:\n" << tmpM1 << std::endl;
-//   double argumentsV1[] = {1.0, 2.0};
-//   Vector tmpV1 = Vector(argumentsV1);
-//   double argumentsV2[] = {2.0, 2.0};
-//   Vector tmpV2 = Vector(argumentsV2);
-//   double argumentsV3[] = {3.0, 2.0};
-//   Vector tmpV3 = Vector(argumentsV3);
-//   double argumentsV4[] = {4.0, 2.0};
-//   Vector tmpV4 = Vector(argumentsV4);
-//   Vector argumentsM[] = {{tmpV1}, {tmpV2}, {tmpV3},{tmpV4}};
-//   Prostokat tmpM2 = Prostokat(argumentsM);
-//   Prostokat[1];
-//   std::cout << "Matrix - konstruktor parametryczny:\n" << tmpM2 << std::endl;
-Prostokat pro;
-double arguments1[] = {100, 100};
-  pro.p1 = Vector(arguments1);
-double arguments2[] = {100, 400};  
-  pro.p2 = Vector(arguments2);
-double arguments3[] = {700, 400};  
-  pro.p3 = Vector(arguments3);
-double arguments4[] = {700, 100};  
-  pro.p4 = Vector(arguments4);
+  double arguments1[][SIZE] = {{100, 100}, {100, 400}, {700, 400}, {700, 100}};
+  Prostokat pro = Prostokat(arguments1);
 
   PzG::LaczeDoGNUPlota  Lacze;  // Ta zmienna jest potrzebna do wizualizacji
                                 // rysunku prostokata

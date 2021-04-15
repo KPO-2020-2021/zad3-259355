@@ -81,7 +81,6 @@ Vector Vector::operator + (const Vector &v) {
     return result;
 }
 
-
 /******************************************************************************
  |  Realizuje odejmowanie dwoch wektorow.                                     |
  |  Argumenty:                                                                |
