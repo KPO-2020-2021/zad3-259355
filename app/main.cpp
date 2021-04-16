@@ -45,12 +45,10 @@ using namespace std;
  * \retval true - gdy operacja zapisu powiodła się,
  * \retval false - w przypadku przeciwnym.
  */
-void Tostrm( std::ostream& StrmWy, Prostokat pro)
-{
-  StrmWy << pro << endl;
-}
-
-
+// void Tostrm( std::ostream& StrmWy, Prostokat pro)
+// {
+//   StrmWy << pro << endl;
+// }
 
 /*!
  * Przyklad zapisu wspolrzednych zbioru punktow do pliku, z ktorego
@@ -64,22 +62,22 @@ void Tostrm( std::ostream& StrmWy, Prostokat pro)
  * \retval true - gdy operacja zapisu powiodła się,
  * \retval false - w przypadku przeciwnym.
  */
-bool Save( const char  *sNazwaPliku, Prostokat pro)
-{
-  std::ofstream  StrmPlikowy;
+// bool Save( const char  *sNazwaPliku, Prostokat pro)
+// {
+//   std::ofstream  StrmPlikowy;
 
-  StrmPlikowy.open(sNazwaPliku);
-  if (!StrmPlikowy.is_open())  {
-    std::cerr << ":(  Operacja otwarcia do zapisu \"" << sNazwaPliku << "\"" << std::endl
-	 << ":(  nie powiodla sie." << std::endl;
-    return false;
-  }
+//   StrmPlikowy.open(sNazwaPliku);
+//   if (!StrmPlikowy.is_open())  {
+//     std::cerr << ":(  Operacja otwarcia do zapisu \"" << sNazwaPliku << "\"" << std::endl
+// 	 << ":(  nie powiodla sie." << std::endl;
+//     return false;
+//   }
 
-  Tostrm(StrmPlikowy, pro);
+//   Tostrm(StrmPlikowy, pro);
 
-  StrmPlikowy.close();
-  return !StrmPlikowy.fail();
-}
+//   StrmPlikowy.close();
+//   return !StrmPlikowy.fail();
+// }
 
 int main() {
   std::cout << "Project Rotation 2D based on C++ Boiler Plate v"
@@ -124,7 +122,10 @@ int main() {
    //  jako wspolrzedne punktow podajemy tylko x,y.
    //
   Lacze.ZmienTrybRys(PzG::TR_2D);
-cout << "Beginning" << endl;
+  pro.Save("../datasets/prostokat.dat");
+  Lacze.Rysuj();
+
+  cout << "Beginning" << endl;
   double temp1, temp2;
   char choice;
   pro.lenght();
@@ -140,39 +141,41 @@ cout << "Beginning" << endl;
 
   while (choice != 'k'){
 
-    if(choice == 'o' || choice == 'p'){
-      if (!Save("../datasets/prostokat.dat",pro)) return 1;
-      Lacze.Rysuj();     
-    }
-
     cout << "Your choice?  (m-menu) >" << endl;
     cin >> choice;
+
     switch( choice ){
       case 'o': 
         double ang, howm;
+
         cout << "Choose an angle: ";
         cin >> ang;
         cout << "Choose how many times to turn rectangle: ";
         cin >> howm;
-        for (int i = 0; i<howm; i++ ){
-          pro.turn(ang);
-        }
+
+        pro.turning(pro, "../datasets/prostokat.dat", ang, howm, Lacze);
+
         cout << pro << endl;
         cout << "After" << endl;
         cout << endl;
+
         pro.showres(temp1,temp2);
         cout << endl;
-        break;
+      break;
+
       case 'p': 
         cout << "Vector to move: ";
         cin >> tmp;
-        pro.move(tmp);
+        pro.moving(tmp,"../datasets/prostokat.dat", Lacze);
+
         cout << pro << endl;
         cout << "After" << endl;
         cout << endl;
+
         pro.showres(temp1,temp2);
         cout << endl;
-        break;
+      break;
+
       case 'w': 
         cout << "Cooridantes" << endl;
         cout << pro << endl;
@@ -183,13 +186,15 @@ cout << "Beginning" << endl;
         cout << "w - cords" << endl;
         cout << "p - move" << endl;
         cout << "k - end" << endl;
-        break;
+      break;
+
       case 'k': 
         cout << "The end" << endl;
-        break;
+      break;
+
       default:
         cout << "Wrong Option" << endl;
-        break;
+      break;
     }
   }
 

@@ -184,6 +184,8 @@ std::ostream &operator<<(std::ostream &out, const Matrix &mat) {
     return out;
 }
 
+//Metoda inicjujaca macierz obrotu wartosciami trygonometrycznymi danego kata 
+
 Matrix Matrix::Init(){
 
     this->value[0][0] = cos(this->angle);
@@ -193,6 +195,8 @@ Matrix Matrix::Init(){
 
     return *this;
 }
+
+//Funkcja zmieniajaca kat ze stopni na radiany i zwracajaca nowa wartosc katu
 
 double Matrix::toradians(){
 

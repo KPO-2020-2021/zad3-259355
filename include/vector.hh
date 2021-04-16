@@ -2,6 +2,8 @@
 
 #include "size.hh"
 #include <iostream>
+#include <math.h>
+#include <iomanip>
 
 class Vector {
 
@@ -23,7 +25,7 @@ public:
 
     Vector operator / (const double &tmp);
 
-    double vlenght (Vector vec2);
+    // double vlenght (Vector vec2);
 
     const double &operator [] (int index) const;
 
@@ -202,12 +204,12 @@ std::istream &operator >> (std::istream &in, Vector &tmp) {
     return in;
 }
 
-double Vector::vlenght (Vector vec2){
-    double len;
+// double Vector::vlenght (Vector vec2){
+//     double len;
     
-    len = sqrt(pow(vec2.size[0] - this->size[0],2) + pow(vec2.size[SIZE-1] - this->size[SIZE-1],2));
+//     len = sqrt(pow(vec2.size[0] - this->size[0],2) + pow(vec2.size[SIZE-1] - this->size[SIZE-1],2));
 
-    return len;
-}
+//     return len;
+// }
 
 
