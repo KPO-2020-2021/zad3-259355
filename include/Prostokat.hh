@@ -8,6 +8,8 @@
 #include <iostream>
 #include <iomanip>
 #include "../include/lacze_do_gnuplota.hh"
+#include <unistd.h>
+#include <fstream>
 
 
 /*
@@ -56,9 +58,13 @@ class Prostokat {
   
   void showres(double const temp1, double const temp2);
 
+//   friend bool operator == (const double temp1, const double temp2);
+
 };
 
 std::ostream& operator << ( std::ostream &stream, const Prostokat &Pr);
+
+// bool operator == (const double temp1, const double temp2);
 
 
 // /******************************************************************************
@@ -269,5 +275,14 @@ void Prostokat::turning(Prostokat &pro, const char *sNazwaPliku, double const an
         }
     }
 }
+
+// bool operator == (const double temp1,const double temp2){
+//     if(abs(temp1 - temp2) < MIN_DIFF){
+//         return true;
+//     }
+//     else{
+//         return false;
+//     }
+// }
 
 #endif

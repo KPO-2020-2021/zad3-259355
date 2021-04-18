@@ -10,3 +10,8 @@ TEST_CASE("complicated integration tests could be here")
   Dummy d;
   CHECK(d.doSomething() == true);
 }
+
+TEST_CASE("ok")
+{
+  CHECK(1==1);
+}
