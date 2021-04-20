@@ -24,11 +24,11 @@ class Prostokat {
    */
   private:
 
-  double pro [NOPOINTS][SIZE];
+  Vector pro [NOPOINTS];
 
   public:
 
-  Prostokat(double [NOPOINTS][SIZE]);            // Konstruktor klasy
+  Prostokat(Vector [NOPOINTS]);             //Konstruktor klasy 
 
   Prostokat();                               // Konstruktor klasy
 
@@ -41,8 +41,10 @@ class Prostokat {
   Prostokat operator + (const Vector vec2);
 
   double  &operator () (unsigned int row, unsigned int column);
+
+  const double  &operator () (unsigned int row, unsigned int column) const;
     
-  const double &operator () (unsigned int row, unsigned int column) const;
+  const Vector &operator () (unsigned int row) const;
 
   double blen;
 
@@ -90,7 +92,7 @@ Prostokat::Prostokat() {
 //  |  Zwraca:                                                                   |
 //  |      Prostokat wypelniona wartosciami podanymi w argumencie.                 |
 //  */
-Prostokat::Prostokat(double tmp[NOPOINTS][SIZE]) {
+Prostokat::Prostokat(Vector tmp[NOPOINTS]) {
     for (int i = 0; i < NOPOINTS; ++i) {
         for(int j = 0; j < SIZE; ++j) {
         pro[i][j] = tmp[i][j];
@@ -130,6 +132,21 @@ double &Prostokat::operator()(unsigned int row, unsigned int column) {
  |  Zwraca:                                                                   |
  |      Wartosc macierzy w danym miejscu tablicy jako stala.                  |
  */
+const Vector &Prostokat::operator () (unsigned int row) const {
+
+    if (row >= NOPOINTS) {
+        std::cout << "Error: Prostokat jest poza zasiegiem";
+        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+    }
+
+    // if (column >= SIZE) {
+    //     std::cout << "Error: Prostokat jest poza zasiegiem";
+    //     exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+    // }
+
+    return pro[row];
+}
+
 const double &Prostokat::operator () (unsigned int row, unsigned int column) const {
 
     if (row >= NOPOINTS) {
@@ -172,7 +189,7 @@ Prostokat Prostokat::move(const Vector &vec){
 void Prostokat::moving(Vector &vec, const char *sNazwaPliku, PzG::LaczeDoGNUPlota Lacze){
 
     Vector temp;
-    temp = vec / 100 ;
+    temp = vec / 100.00 ;
     for(int i = 0; i < 100; ++i){
         this->move(temp);
         this->Save(sNazwaPliku);
@@ -198,9 +215,9 @@ std::ostream& operator << ( std::ostream &stream, const Prostokat &Pr){
 
 for (int i = 0; i < NOPOINTS; ++i){
     
-    stream << std::setw(16) << std::fixed << std::setprecision(10) << Pr(i,0) << std::setw(16) << std::fixed << std::setprecision(10) << Pr(i,1) << std::endl;
+    stream << std::setw(16) << std::fixed << std::setprecision(10) << Pr(i) << std::endl;
     }
-    stream << std::setw(16) << std::fixed << std::setprecision(10) << Pr(0,0) << std::setw(16) << std::fixed << std::setprecision(10) << Pr(0,1) << std::endl;
+    stream << std::setw(16) << std::fixed << std::setprecision(10) << Pr(0) << std::endl;
     return stream;
 }
 
@@ -240,7 +257,7 @@ void Prostokat::showres(double const temp1, double const temp2){
 void Prostokat::turn(int const ang){
     Matrix matrix;
     matrix.angle = ang;
-    matrix.toradians();
+    // matrix.toradians();
     matrix.Init();
     *this = *this * matrix;
 }

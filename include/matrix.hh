@@ -29,6 +29,9 @@ public:
     double  &operator () (unsigned int row, unsigned int column);
     
     const double &operator () (unsigned int row, unsigned int column) const;
+
+    bool operator == ( const Matrix tmp) const;
+
 };
 
 std::istream &operator>>(std::istream &in, Matrix &mat);
@@ -188,6 +191,7 @@ std::ostream &operator<<(std::ostream &out, const Matrix &mat) {
 
 Matrix Matrix::Init(){
 
+    this->toradians();
     this->value[0][0] = cos(this->angle);
     this->value[1][0] = -sin(this->angle);
     this->value[0][1] = sin(this->angle);
@@ -204,3 +208,34 @@ double Matrix::toradians(){
     return this->angle;
 }
 
+bool Matrix::operator == ( const Matrix tmp) const {
+    int k = 0;
+    for(int i = 0; i < SIZE; ++i){
+        for(int j = 0; j < SIZE; ++j){
+            if(this->value[i][j] == tmp(i,j)){
+                k++;
+            }
+        }
+    }
+    if(k == 4){
+        return true;
+    }
+    else{
+        return false;
+    }
+    // if(this->value[0,0] == tmp[0,0] ){
+    //     return true;
+    // }
+    // else{
+    //     return false;
+    // }
+}
+
+// bool Matrix::operator != (const Matrix tmp) const{
+//     if(abs(this->size[0] - tmp[0]) > MIN_DIFF || abs(this->size[1] == tmp[1]) > MIN_DIFF){
+//         return true;
+//     }
+//     else{
+//         return false;
+//     }
+// }

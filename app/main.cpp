@@ -38,8 +38,15 @@ int main() {
             << "."
             << PROJECT_VERSION_TWEAK /* zmiany estetyczne itd. */
             << std::endl;
-
-  double arguments1[][SIZE] = {{10, 10}, {10, 40}, {70, 40}, {70, 10}};
+  double arg1[] = {10,10};
+  double arg2[] = {10,40};
+  double arg3[] = {70,40};
+  double arg4[] = {70,10};
+  Vector vec1 = Vector(arg1);
+  Vector vec2 = Vector(arg2);
+  Vector vec3 = Vector(arg3);
+  Vector vec4 = Vector(arg4);
+  Vector arguments1[] = { vec1, vec2, vec3, vec4};
   Prostokat pro = Prostokat(arguments1);
 
   PzG::LaczeDoGNUPlota  Lacze;  // Ta zmienna jest potrzebna do wizualizacji

@@ -17,9 +17,9 @@ public:
 
     Vector(double [SIZE]);
 
-    Vector operator + (const Vector &v);
+    Vector operator + ( Vector &v);
 
-    Vector operator - (const Vector &v);
+    Vector operator - ( Vector &v);
 
     Vector operator * (const double &tmp);
 
@@ -30,6 +30,10 @@ public:
     const double &operator [] (int index) const;
 
     double &operator [] (int index);
+
+    bool operator == (const Vector tmp) const ;
+
+    bool operator != (const Vector tmp) const ;
 
 };
 
@@ -75,7 +79,7 @@ Vector::Vector(double tmp[SIZE]) {
  |      Sume dwoch skladnikow przekazanych jako wskaznik                      |
  |      na parametr.                                                          |
  */
-Vector Vector::operator + (const Vector &v) {
+Vector Vector::operator + ( Vector &v) {
     Vector result;
     for (int i = 0; i < SIZE; ++i) {
         result[i] = size[i] += v[i];
@@ -92,7 +96,7 @@ Vector Vector::operator + (const Vector &v) {
  |      Roznice dwoch skladnikow przekazanych jako wskaznik                   |
  |      na parametr.                                                          |
  */
-Vector Vector::operator - (const Vector &v) {
+Vector Vector::operator - ( Vector &v) {
     Vector result;
     for (int i = 0; i < SIZE; ++i) {
         result[i] = size[i] -= v[i];
@@ -204,6 +208,23 @@ std::istream &operator >> (std::istream &in, Vector &tmp) {
     return in;
 }
 
+bool Vector::operator == ( const Vector tmp) const {
+    if(abs(this->size[0] - tmp[0]) <= MIN_DIFF && abs(this->size[1] - tmp[1]) <= MIN_DIFF){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Vector::operator != (const Vector tmp) const{
+    if(abs(this->size[0] - tmp[0]) > MIN_DIFF || abs(this->size[1] == tmp[1]) > MIN_DIFF){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 // double Vector::vlenght (Vector vec2){
 //     double len;
     
