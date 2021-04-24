@@ -23,6 +23,8 @@ public:
 
     Matrix operator + (Matrix tmp);
 
+    double determinant();
+
     Matrix Init();
 
     double toradians();

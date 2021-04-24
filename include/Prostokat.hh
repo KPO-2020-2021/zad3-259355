@@ -54,7 +54,7 @@ class Prostokat {
 
   void turning(Prostokat &pro, const char *sNazwaPliku, double const ang, double const howm, PzG::LaczeDoGNUPlota Lacze);
 
-  double lenght();
+  Prostokat lenght();
 
   bool Save(const char *sNazwaPliku);
   

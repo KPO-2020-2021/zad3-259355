@@ -134,11 +134,11 @@ void Prostokat::moving(Vector &vec, const char *sNazwaPliku, PzG::LaczeDoGNUPlot
 
 //Metoda ktora oblicza wartosci dluzszego (blen) i krotszego (slen) boku prostokata
 
-double Prostokat::lenght(){
+Prostokat Prostokat::lenght(){
 
    this->slen = sqrt(pow(this->pro[0][0] - this->pro[1][0],2) + pow(this->pro[0][1] - this->pro[1][1],2));
    this->blen = sqrt(pow(this->pro[0][0] - this->pro[3][0],2) + pow(this->pro[0][1] - this->pro[3][1],2));
-   return 0;
+   return *this;
 }
 
 //Przeciazenie operatora przesuniecia bitowego w lewo
@@ -214,7 +214,7 @@ bool Prostokat::Save(const char *sNazwaPliku)
 
 void Prostokat::turning(Prostokat &pro, const char *sNazwaPliku, double const ang, double const howm, PzG::LaczeDoGNUPlota Lacze)
 {
-  
+  if(howm < 5){
     for(int i = 0; i < howm; ++i){
         for(int k = 0; k < ang; ++k){
             pro.turn(1);
@@ -222,8 +222,14 @@ void Prostokat::turning(Prostokat &pro, const char *sNazwaPliku, double const an
             usleep(4000);
             Lacze.Rysuj(); 
             usleep(4000);
+            }
         }
     }
+  else{
+      pro.turn(ang);
+      pro.Save(sNazwaPliku);
+      Lacze.Rysuj();
+  }
 }
 
 // bool operator == (const double temp1,const double temp2){

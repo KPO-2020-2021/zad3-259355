@@ -168,6 +168,7 @@ double Matrix::toradians(){
     return this->angle;
 }
 
+//Przeciazenie operatora porownania macierzy 
 bool Matrix::operator == ( const Matrix tmp) const {
     int k = 0;
     for(int i = 0; i < SIZE; ++i){
@@ -183,19 +184,14 @@ bool Matrix::operator == ( const Matrix tmp) const {
     else{
         return false;
     }
-    // if(this->value[0,0] == tmp[0,0] ){
-    //     return true;
-    // }
-    // else{
-    //     return false;
-    // }
 }
 
-// bool Matrix::operator != (const Matrix tmp) const{
-//     if(abs(this->size[0] - tmp[0]) > MIN_DIFF || abs(this->size[1] == tmp[1]) > MIN_DIFF){
-//         return true;
-//     }
-//     else{
-//         return false;
-//     }
-// }
+//Funkcja obliczajaca wyznacznik macierzy i zwraca jego wartosc
+
+double Matrix::determinant(){
+    double deter1, deter2, deter;
+    deter1 = this->value[0][0] * this->value[0][1];
+    deter2 = this->value[0][1] * this->value[1][0];
+    deter = deter1 - deter2;
+    return deter;
+}
