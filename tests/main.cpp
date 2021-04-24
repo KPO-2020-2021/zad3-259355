@@ -10,7 +10,6 @@
 #include "example.h"
 #include <fstream>
 
-
 // Tests which check if functions related with rectangle
 
 TEST_CASE("Rectangle - Proper save of coordinates")
@@ -168,38 +167,57 @@ TEST_CASE("Vector - division (arg = 0)"){
     WARN_THROWS(vec1 / arg);
 }
 
-// TEST_CASE("Vector - display"){
-//     double arg1[SIZE] = {100,100};
-//     Vector vec1 = Vector(arg1);
-//     std::ostringstream stream;
-//     stream << vec1;
-//     CHECK( "100.0000000000   100.0000000000" == stream.str());
-// }
+TEST_CASE("Index operator"){
+  double value[] = {3,4};
+  double a, b;
+  Vector Vec(value);
+  a = Vec[0];
+  b = Vec[1];
+  CHECK( (a == 3 && b == 4));
+}
 
-// TEST_CASE("Vector - loading"){
-//     Vector vec1;
-//     std::istringstream in("100 100");
-//     in >> vec1;
-//     std::ostringstream stream;
-//     stream << vec1;
-//     CHECK( "100.0000000000   100.0000000000" == stream.str());
-// }
+TEST_CASE("Index operator values to vector"){
+  double a = 3;
+  double b = 4;
+  Vector Vec;
+  Vec[0] = a;
+  Vec[1] = b;
+  CHECK( (Vec[0] == 3 && Vec[1] == 4));
+}
 
-// TEST_CASE("Vector - constructor (start)"){
-//     Vector vec0();
-//     double arg1[SIZE] = {0,0};
-//     Vector vec1 = Vector(arg1);
-//     CHECK( vec1 == vec0 );
-// }
+TEST_CASE("Constructor values in"){
+  double value[] = {3,4};
+  Vector Vec(value);
+  CHECK( (Vec[0] == 3 && Vec[1] == 4));
+}
+
+TEST_CASE("Out of range"){
+  double value[] = {3,4};
+  Vector Vec(value);
+  WARN_THROWS( Vec[2]);
+}
+
+TEST_CASE("Start Constructor"){
+  Vector Vec;
+  CHECK( (Vec[0] == 0 && Vec[1] == 0));
+}
+
+TEST_CASE(">> operator"){
+  Vector vec;
+  std::istringstream in("0 1");
+  in >> vec;
+  CHECK( (vec[0] == 0 && vec[1] == 1) );
+}
+
+TEST_CASE("Vector - display"){
+    double arg[] = {0,1};
+    Vector vec1(arg);
+    std::ostringstream stream;
+    stream << vec1;
+    CHECK( "    0.0000000000    1.0000000000" == stream.str());
+}
 
 // Tests Matrix 
-
-// TEST_CASE("Matrix - constructor (start)"){
-//     Matrix matr0();
-//     double arg1[][SIZE] = {{0,0} , {0,0}};
-//     Matrix matr1 = Matrix(arg1);
-//     CHECK( matr1 == matr0 );
-// }
 
 TEST_CASE("Matrix - Init"){
 
@@ -250,8 +268,60 @@ TEST_CASE("Matrix - multiplication (vector)"){
     double argtemp[SIZE] = {1000,1000};
     Vector vectemp = Vector(argtemp);
 
-    // for(int i = 0; i < SIZE; ++i){
     CHECK( vectemp == matr * vec );
-    // }
 }
 
+TEST_CASE("Index operator"){
+  double value[][SIZE] = { {3,4}, {3,4}};
+  double a, b;
+  Matrix mat(value);
+  a = mat(0,0);
+  b = mat(0,1);
+  CHECK( (a == 3 && b == 4) );
+}
+
+TEST_CASE("Index operator values to vector"){
+  double a = 3;
+  double b = 4;
+  double c = 0;
+  double d = 5;
+  Matrix mat;
+  mat(0,0) = a;
+  mat(0,1) = b;
+  mat(1,0) = c;
+  mat(1,1) = d;
+
+  CHECK( (mat(0,0) == 3 && mat(0,1) == 4 && mat(1,0) == 0 && mat(1,1) == 5) );
+}
+
+TEST_CASE("Constructor values in"){
+  double value[][SIZE] = {{3,4}, {4,5}};
+  Matrix mat(value);
+  CHECK( (mat(0,0) == 3 && mat(0,1) == 4 && mat(1,0) == 4 && mat(1,1) == 5) );
+}
+
+TEST_CASE("Out of range"){
+  double value[][SIZE] = {{3,4}, {4,5}};
+  Matrix mat(value);
+  WARN_THROWS( mat(2,2));
+}
+
+TEST_CASE("Start Constructor"){
+  Matrix mat;
+  CHECK( (mat(0,0) == 0 && mat(0,1) == 0 && mat(1,0) == 0 && mat(1,1) == 0) );
+}
+
+TEST_CASE(">> operator"){
+  Matrix mat;
+  std::istringstream in("0 0 1 1");
+  in >> mat;
+  CHECK( (mat(0,0) == 0 && mat(0,1) == 0 && mat(1,0) == 1 && mat(1,1) == 1) );
+}
+
+TEST_CASE("Matrix - display"){
+    double value[][SIZE] = {{3,4}, {4,5}};
+    Matrix mat(value);
+    std::ostringstream stream;
+    stream << mat;
+    CHECK( "| 3 | | 4 | | 4 | | 5 | " == stream.str());
+}
