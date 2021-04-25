@@ -21,6 +21,11 @@
 
 using namespace std;
 
+// template <typename T, typename U>
+// void Wymnoz( T Arg1, U (&Arg2_Tab)[4]){
+//   for(U &Mnoznik : Arg2_Tab) Mnoznik = Arg1 * Mnoznik;
+// }
+
 /*!
  * Simple main program that demontrates how access
  * CMake definitions (here the version number) from source code.
@@ -29,6 +34,18 @@ using namespace std;
  */
 
 int main() {
+
+  // double Arg1 = 2;
+  // double Tab[4] = {1,2,3,4};
+
+  // Wymnoz(Arg1, Tab);
+
+  // Matrix mat;
+  // Vector vec[4];
+
+  // Wymnoz(mat, vec);
+
+
   std::cout << "Project Rotation 2D based on C++ Boiler Plate v"
             << PROJECT_VERSION_MAJOR /*duże zmiany, najczęściej brak kompatybilności wstecz */
             << "."
