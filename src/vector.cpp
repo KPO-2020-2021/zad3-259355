@@ -171,6 +171,7 @@ std::istream &operator >> (std::istream &in, Vector &tmp) {
     return in;
 }
 
+//Przeciazennie ktore sprawdza czy dane wektory sa rowne
 bool Vector::operator == ( const Vector tmp) const {
     if(abs(this->size[0] - tmp[0]) <= MIN_DIFF && abs(this->size[1] - tmp[1]) <= MIN_DIFF){
         return true;
@@ -180,6 +181,7 @@ bool Vector::operator == ( const Vector tmp) const {
     }
 }
 
+// Przeciazenie sprawdzajace czy wektory sa rozne
 bool Vector::operator != (const Vector tmp) const{
     if(abs(this->size[0] - tmp[0]) > MIN_DIFF || abs(this->size[1] == tmp[1]) > MIN_DIFF){
         return true;
@@ -196,4 +198,28 @@ bool Vector::operator != (const Vector tmp) const{
 //     return len;
 // }
 
+// Vector Vector::gauss(Matrix mat){
+//     Vector tmp;
+//     double temp1, temp2;
+//     temp1 = mat(0,0);
+//     temp2 = mat(0,1);
+
+//     mat(0,0) *= mat(0,1);
+//     mat(0,1) *= temp1;
+//     this->size[0] *= temp2;
+//     mat(1,0) *= temp2;
+//     mat(1,1) *= temp1;
+//     this->size[1] *= temp1;
+//     mat(0,1) -= mat(0,0);
+//     mat(1,1) -= mat(1,0);
+
+//     this->size[1] /= mat(1,1);
+//     tmp[1] = this->size[1];
+
+//     mat(1,0) *= tmp[1];
+//     this->size[0] -= mat(1,0);
+//     tmp[0] = this->size[0]/ mat(0,0);
+
+//     return tmp;
+// }
 

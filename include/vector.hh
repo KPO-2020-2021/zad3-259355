@@ -4,6 +4,7 @@
 #include <iostream>
 #include <math.h>
 #include <iomanip>
+#include "matrix.hh"
 
 class Vector {
 
@@ -30,6 +31,8 @@ public:
     const double &operator [] (int index) const;
 
     double &operator [] (int index);
+
+    // Vector gauss(Matrix mat);
 
     bool operator == (const Vector tmp) const ;
 
