@@ -188,13 +188,13 @@ bool Matrix::operator == ( const Matrix tmp) const {
 
 //Funkcja obliczajaca wyznacznik macierzy i zwraca jego wartosc
 
-double Matrix::determinant(){
-    double deter1, deter2, deter;
-    deter1 = this->value[0][0] * this->value[0][1];
-    deter2 = this->value[0][1] * this->value[1][0];
-    deter = deter1 - deter2;
-    return deter;
-}
+// double Matrix::determinant(){
+//     double deter1, deter2, deter;
+//     deter1 = this->value[0][0] * this->value[0][1];
+//     deter2 = this->value[0][1] * this->value[1][0];
+//     deter = deter1 - deter2;
+//     return deter;
+// }
 
 //Funkcja obliczajaca dzialanie mnozenia dwoch macierzy 
 Matrix Matrix::operator * (Matrix sec){
@@ -207,4 +207,35 @@ Matrix Matrix::operator * (Matrix sec){
         }
     }
     return tmp;
+}
+
+double Matrix::determinant(){
+    double ratio;
+    int i,j,k;
+    for( i=0 ; i< SIZE-1 ; i++)
+        {
+            if(this->value[i][i] == 0.0)
+            {
+                std::cout<<"Mathematical Error!";
+                exit(0);
+            }
+            for(j=i+1;j<SIZE;j++)
+            {
+                ratio = this->value[j][i]/this->value[i][i];
+
+                for(k=0;k<SIZE;k++)
+                {
+                    std::cout << *this << std::endl;
+                    this->value[j][k] = this->value[j][k] - ratio*this->value[i][k];
+                }
+            }
+        }
+    std::cout << *this << std::endl;
+    std::cout << this->value[0][0] << " i " << this->value[0][1] << " i " << this->value[1][1] << std::endl;
+    double deter = 1;
+    for( i = 0; i < SIZE; ++i){
+        deter *= this->value[i][i];
+    }
+    
+    return deter;
 }

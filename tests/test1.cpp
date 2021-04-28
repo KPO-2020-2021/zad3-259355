@@ -316,24 +316,24 @@ TEST_CASE("Index operator values to vector"){
   CHECK( (mat(0,0) == 3 && mat(0,1) == 4 && mat(1,0) == 0 && mat(1,1) == 5) );
 }
 
-TEST_CASE("Constructor values in"){
+TEST_CASE("Matrix - Constructor values in"){
   double value[][SIZE] = {{3,4}, {4,5}};
   Matrix mat(value);
   CHECK( (mat(0,0) == 3 && mat(0,1) == 4 && mat(1,0) == 4 && mat(1,1) == 5) );
 }
 
-TEST_CASE("Out of range"){
+TEST_CASE("Matrix - Out of range"){
   double value[][SIZE] = {{3,4}, {4,5}};
   Matrix mat(value);
   WARN_THROWS( mat(2,2));
 }
 
-TEST_CASE("Start Constructor"){
+TEST_CASE("Matrix - Start Constructor"){
   Matrix mat;
   CHECK( (mat(0,0) == 0 && mat(0,1) == 0 && mat(1,0) == 0 && mat(1,1) == 0) );
 }
 
-TEST_CASE(">> operator"){
+TEST_CASE("Matrix - >> operator"){
   Matrix mat;
   std::istringstream in("0 0 1 1");
   in >> mat;
@@ -365,4 +365,13 @@ TEST_CASE("Matrix - multiplication by another matrix"){
     Matrix mat2 = Matrix(arg1);
     Matrix tmp(res);
     CHECK( tmp == mat1 * mat2);
+}
+
+TEST_CASE("Matrix - determinant"){
+  double value[][SIZE] = {{3,3}, {4,5}};
+  Matrix mat(value);
+  double deter;
+  double tmp = -1;
+  deter = mat.determinant();
+  CHECK( (deter - tmp) < MIN_DIFF);
 }
