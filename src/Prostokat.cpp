@@ -44,13 +44,11 @@ Prostokat::Prostokat(Vector tmp[NOPOINTS]) {
 double &Prostokat::operator()(unsigned int row, unsigned int column) {
 
     if (row >= NOPOINTS) {
-        std::cout << "Error: Macierz jest poza zasiegiem"; 
-        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+        throw std::out_of_range("Error: Macierz jest poza zasiegiem");
     }
 
     if (column >= SIZE) {
-        std::cout << "Error: Macierz jest poza zasiegiem";
-        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+        throw std::out_of_range("Error: Macierz jest poza zasiegiem");
     }
 
     return pro[row][column];
@@ -68,8 +66,7 @@ double &Prostokat::operator()(unsigned int row, unsigned int column) {
 const Vector &Prostokat::operator () (unsigned int row) const {
 
     if (row >= NOPOINTS) {
-        std::cout << "Error: Prostokat jest poza zasiegiem";
-        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+        throw std::out_of_range("Error: Macierz jest poza zasiegiem");
     }
 
     // if (column >= SIZE) {
@@ -83,13 +80,11 @@ const Vector &Prostokat::operator () (unsigned int row) const {
 const double &Prostokat::operator () (unsigned int row, unsigned int column) const {
 
     if (row >= NOPOINTS) {
-        std::cout << "Error: Prostokat jest poza zasiegiem";
-        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+        throw std::out_of_range("Error: Macierz jest poza zasiegiem");
     }
 
     if (column >= SIZE) {
-        std::cout << "Error: Prostokat jest poza zasiegiem";
-        exit(0); // lepiej byłoby rzucić wyjątkiem stdexcept
+        throw std::out_of_range("Error: Macierz jest poza zasiegiem");
     }
 
     return pro[row][column];
@@ -187,7 +182,7 @@ void Prostokat::showres(double const temp1, double const temp2){
 //Funkcja przyjmujaca kat o ktory obracamy prostokat wokol punktu (0,0)
 //Zmienia wartosci wspolrzednych prostokata o dany kata
 
-void Prostokat::turn(int const ang){
+void Prostokat::turn(double const ang){
     Matrix matrix;
     matrix.angle = ang;
     // matrix.toradians();
@@ -214,10 +209,11 @@ bool Prostokat::Save(const char *sNazwaPliku)
 
 void Prostokat::turning(Prostokat &pro, const char *sNazwaPliku, double const ang, double const howm, PzG::LaczeDoGNUPlota Lacze)
 {
+  
   if(howm < 5){
     for(int i = 0; i < howm; ++i){
-        for(int k = 0; k < ang; ++k){
-            pro.turn(1);
+        for(int k = 0; k < abs(ang); ++k){
+            pro.turn(ang/abs(ang));
             pro.Save(sNazwaPliku);
             usleep(4000);
             Lacze.Rysuj(); 

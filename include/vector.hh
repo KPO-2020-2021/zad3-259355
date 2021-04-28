@@ -4,7 +4,6 @@
 #include <iostream>
 #include <math.h>
 #include <iomanip>
-#include "matrix.hh"
 
 class Vector {
 

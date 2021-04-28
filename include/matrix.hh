@@ -33,6 +33,8 @@ public:
     
     const double &operator () (unsigned int row, unsigned int column) const;
 
+    Matrix operator * (Matrix sec);
+
     bool operator == ( const Matrix tmp) const;
 
 };

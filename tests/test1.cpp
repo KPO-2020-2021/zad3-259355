@@ -8,9 +8,15 @@
 #include "Prostokat.hh"
 #include "size.hh"
 #include "example.h"
+#include <cmath>
 #include <fstream>
 
+
+
+
+
 // Tests which check if functions related with rectangle
+
 
 TEST_CASE("Rectangle - Proper save of coordinates")
 {
@@ -120,7 +126,15 @@ TEST_CASE("Rectangle - move (vector [100,100])"){
     }
 }
 
+
+
+
+
+
+
+
 // Tests Vector
+
 
 TEST_CASE("Vector - sum"){
     double arg1[] = {100,100};
@@ -217,7 +231,15 @@ TEST_CASE("Vector - display"){
     CHECK( "    0.0000000000    1.0000000000" == stream.str());
 }
 
+
+
+
+
+
+
+
 // Tests Matrix 
+
 
 TEST_CASE("Matrix - Init"){
 
@@ -324,4 +346,23 @@ TEST_CASE("Matrix - display"){
     std::ostringstream stream;
     stream << mat;
     CHECK( "| 3 | | 4 | | 4 | | 5 | " == stream.str());
+}
+
+TEST_CASE("Matrix - to radians"){
+    double cos1;
+    double ang;
+    double t = 0;
+    ang = -M_PI/2;
+    cos1 = cos(ang);
+    CHECK((t - cos1) <= MIN_DIFF);
+}
+
+TEST_CASE("Matrix - multiplication by another matrix"){
+    double arg[][SIZE] = {{1,1}, {2,2}};
+    double arg1[][SIZE] = {{1,2}, {1,2}};
+    double res[][SIZE] = {{5,5}, {5,5}};
+    Matrix mat1 = Matrix(arg);
+    Matrix mat2 = Matrix(arg1);
+    Matrix tmp(res);
+    CHECK( tmp == mat1 * mat2);
 }

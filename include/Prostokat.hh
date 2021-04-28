@@ -31,6 +31,10 @@ class Prostokat {
   Prostokat(Vector [NOPOINTS]);             //Konstruktor klasy 
 
   Prostokat();                               // Konstruktor klasy
+  
+  double blen;
+
+  double slen;                             
 
   Prostokat operator * (const Matrix &matrix);
 
@@ -46,11 +50,7 @@ class Prostokat {
     
   const Vector &operator () (unsigned int row) const;
 
-  double blen;
-
-  double slen;
-
-  void turn(int const ang);
+  void turn(double const ang);
 
   void turning(Prostokat &pro, const char *sNazwaPliku, double const ang, double const howm, PzG::LaczeDoGNUPlota Lacze);
 

@@ -67,7 +67,7 @@ double &Matrix::operator()(unsigned int row, unsigned int column) {
     }
 
     if (column >= SIZE) {
-        throw std::out_of_range("Error: Macierz jest poza zasiegiem"); // lepiej byłoby rzucić wyjątkiem stdexcept
+        throw std::out_of_range("Error: Macierz jest poza zasiegiem"); 
     }
 
     return value[row][column];
@@ -194,4 +194,17 @@ double Matrix::determinant(){
     deter2 = this->value[0][1] * this->value[1][0];
     deter = deter1 - deter2;
     return deter;
+}
+
+//Funkcja obliczajaca dzialanie mnozenia dwoch macierzy 
+Matrix Matrix::operator * (Matrix sec){
+    Matrix tmp;
+    for( int i = 0; i < SIZE; ++i){
+        for( int j = 0; j < SIZE; ++j){
+            for( int k = 0; k < SIZE; ++k){
+                tmp(i,j) += this->value[k][j] * sec(j,k);
+            }
+        }
+    }
+    return tmp;
 }
