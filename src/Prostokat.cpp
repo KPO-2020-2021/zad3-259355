@@ -77,6 +77,8 @@ const Vector &Prostokat::operator () (unsigned int row) const {
     return pro[row];
 }
 
+//Przeciazenie operatora () indeksowania dla prostokata z odpowiednimi zabezpieczeniami
+
 const double &Prostokat::operator () (unsigned int row, unsigned int column) const {
 
     if (row >= NOPOINTS) {
@@ -113,6 +115,8 @@ Prostokat Prostokat::move(const Vector &vec){
     // Lacze.Rysuj();
     return *this;
 }
+
+// Funkcja powodujaca animacje przesuniecia prostokata o wektor
 
 void Prostokat::moving(Vector &vec, const char *sNazwaPliku, PzG::LaczeDoGNUPlota Lacze){
 
@@ -190,6 +194,8 @@ void Prostokat::turn(double const ang){
     *this = *this * matrix;
 }
 
+//Funkcja zapisu wspolrzednych bokow do pliku
+
 bool Prostokat::Save(const char *sNazwaPliku)
 {
   std::ofstream  StrmPlikowy;
@@ -206,6 +212,8 @@ bool Prostokat::Save(const char *sNazwaPliku)
   StrmPlikowy.close();
   return !StrmPlikowy.fail();
 }
+
+//Funkcja wykonujaca animacje obrotu prostokata o dany kat wykonuje sie dla mniej niz 5 powtorzen
 
 void Prostokat::turning(Prostokat &pro, const char *sNazwaPliku, double const ang, double const howm, PzG::LaczeDoGNUPlota Lacze)
 {

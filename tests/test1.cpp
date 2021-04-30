@@ -52,6 +52,28 @@ TEST_CASE("Rectangle - Proper save of coordinates")
   }
 }
 
+TEST_CASE("Rectangle - Proper length of sides")
+{
+  double arg1[] = {100,100};
+  double arg2[] = {100,400};
+  double arg3[] = {700,400};
+  double arg4[] = {700,100};
+  Vector vec1 = Vector(arg1);
+  Vector vec2 = Vector(arg2);
+  Vector vec3 = Vector(arg3);
+  Vector vec4 = Vector(arg4);
+  Vector arguments1[] = { vec1, vec2, vec3, vec4};
+  Prostokat pro = Prostokat(arguments1);
+  double ang = 180;
+  pro.lenght();
+  double temp1, temp2;
+  temp1 = pro.slen;
+  temp2 = pro.blen;
+  pro.turn(ang);
+  pro.lenght();
+  CHECK((pro.blen == temp2 && pro.slen == temp1));
+}
+
 TEST_CASE("Rectangle - rotate (angle - 180, 1 time)"){
     double arg1[] = {100,100};
     double arg2[] = {100,400};
@@ -371,7 +393,7 @@ TEST_CASE("Matrix - determinant"){
   double value[][SIZE] = {{3,3}, {4,5}};
   Matrix mat(value);
   double deter;
-  double tmp = -1;
+  double tmp = 3;
   deter = mat.determinant();
   CHECK( (deter - tmp) < MIN_DIFF);
 }
